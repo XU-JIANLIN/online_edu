@@ -1,0 +1,52 @@
+
+alipay:
+  #应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
+  app_id:
+
+  # 商户私钥，您的PKCS8格式RSA2私钥
+  merchant_private_key:
+  # 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
+  alipay_public_key:
+  # 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+  notify_url: http://t5nsmw.natappfree.cc/payservice/alipay/notify
+
+  # 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+  return_url: http://t5nsmw.natappfree.cc/payservice/alipay/return
+
+  # 签名方式
+  sign_type: RSA2
+  # 数据格式
+  format: json
+  # 字符编码格式
+  charset: UTF-8
+  # 支付宝网关
+    # 正式环境
+    # gateway_url: https://openapi.alipay.com/gateway.do
+    #沙箱环境
+  gateway_url: https://openapi.alipaydev.com/gateway.do
+
+server:
+  port: 8083
+spring:
+  application:
+    name: edu-payservice
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/online_edu?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#指定注册中心地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka/
+  #eureka服务器上获取的是服务器的ip地址，否则是主机名
+  instance:
+    prefer-ip-address: true
+mybatis-plus:
+  mapper-locations: classpath:com/online/edu/payservice/mapper/xml/*.xml
+

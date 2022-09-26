@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.online.edu.payservice.mapper.EduOrdersMapper">
+
+
+    <select id="getOrderList" resultType="com.online.edu.common.VO.OrderInfoVO">
+        SELECT
+        o.id,
+        m.id AS member_id,
+        m.mobile,
+        m.nickname,
+        c.id AS course_id,
+        c.title,
+        o.trade_status,
+        o.total_amount,
+        o.gmt_create,
+        o.gmt_modified
+        FROM
+        edu_orders o
+        LEFT JOIN edu_course c ON o.course_id = c.id
+        LEFT JOIN edu_member m ON o.member_id = m.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+
+</mapper>
